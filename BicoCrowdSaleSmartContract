@@ -1,3 +1,11 @@
+/* Smart contract for your croudsale */ 
+
+pragma solidity ^0.4.10; 
+
+contract token { function transfer(address receiver, uint amount); }
+
+contract Crowdsale { address public beneficiary; uint public fundingGoal; uint public amountRaised; uint public deadline; uint public price; token public tokenReward; mapping(address => uint256) public balanceOf; bool fundingGoalReached = false; event GoalReached(address beneficiary, uint amountRaised); event FundTransfer(address backer, uint amount, bool isContribution); bool crowdsaleClosed = false;
+
 /* data structure to hold information about campaign contributors */
 
 /*  at initialization, setup the owner */
@@ -5,13 +13,13 @@ function Crowdsale(
     address ifSuccessfulSendTo,
     uint fundingGoalInEthers,
     uint durationInMinutes,
-    uint etherCostOfEachToken,
+    uint szaboCostOfEachToken,
     token addressOfTokenUsedAsReward
 ) {
     beneficiary = ifSuccessfulSendTo;
     fundingGoal = fundingGoalInEthers * 1 ether;
     deadline = now + durationInMinutes * 1 minutes;
-    price = etherCostOfEachToken * 1 ether;
+    price = szaboCostOfEachToken * 1 szabo;
     tokenReward = token(addressOfTokenUsedAsReward);
 }
 
@@ -61,3 +69,4 @@ function safeWithdrawal() afterDeadline {
 }
 
 }
+
